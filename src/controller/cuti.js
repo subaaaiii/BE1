@@ -37,7 +37,7 @@ const getAllCuti = async (req,res)=>{
         .json({ message: 'Invalid sort parameter' });
     }
     const cuti = await Cuti.findAll({
-        order: sort ? [[sort, 'ASC']] : [['nama', 'ASC']], // atau default ke 'nama'
+        order: sort ? [[sort, 'ASC']] : [['id', 'ASC']],
     });
     if(sort){
         res.json({  

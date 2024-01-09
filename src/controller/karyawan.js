@@ -46,7 +46,7 @@ const getAllKaryawan = async (req,res)=>{
 
     // Konstruksi query berdasarkan sort yang diberikan 
     const karyawan = await Karyawan.findAll({
-        order: sort ? [[sort, 'ASC']] : [['nama', 'ASC']], // atau default ke 'nama'
+        order: sort ? [[sort, 'ASC']] : [['no_induk', 'ASC']], // atau default ke 'nama'
     });
     if (sort) {
         res.json({
