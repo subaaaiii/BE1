@@ -5,7 +5,15 @@ const v = new Validator();
 const { Karyawan } = require('../../models');
 
 const createNewKaryawan = async (req,res)=>{
-    
+    const { no_induk } = req.body;
+
+    const existingKaryawan = await Karyawan.findOne({ no_induk });
+
+    if (existingKaryawan) {
+        return res.status(400).json({
+            message: 'No Induk sudah ada dalam database'
+        });
+    }
         const schema = {
             no_induk : 'string',
             nama : 'string',
@@ -24,7 +32,8 @@ const createNewKaryawan = async (req,res)=>{
             return res
             .status(400)
             .json(validate)
-        } 
+        }
+        
         const karyawan = await Karyawan.create(req.body);
         res.json({
             message: 'Berhasil menambahkan data karyawan ',
