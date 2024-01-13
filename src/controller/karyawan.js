@@ -7,11 +7,12 @@ const { Karyawan } = require('../../models');
 const createNewKaryawan = async (req,res)=>{
     const { no_induk } = req.body;
 
-    const existingKaryawan = await Karyawan.findOne({ no_induk });
+    const existingKaryawan = await Karyawan.findByPk(no_induk);
 
     if (existingKaryawan) {
         return res.status(400).json({
-            message: 'No Induk sudah ada dalam database'
+            message: `No Induk sudah ada dalam database ${no_induk}`,
+            existingKaryawan
         });
     }
         const schema = {
@@ -55,7 +56,7 @@ const getAllKaryawan = async (req,res)=>{
 
     // Konstruksi query berdasarkan sort yang diberikan 
     const karyawan = await Karyawan.findAll({
-        order: sort ? [[sort, 'ASC']] : [['no_induk', 'ASC']], // atau default ke 'nama'
+        order: sort ? [[sort, 'ASC']] : [['no_induk', 'ASC']], // atau default ke 'no induk'
     });
     if (sort) {
         res.json({
