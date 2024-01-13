@@ -40,7 +40,7 @@ const updateCuti = async (req,res)=>{
     try {
         await cutiModel.updateCuti(body, id);
         res.json({
-            message : "Berhasil mengupdate data cuti",
+            message : "Berhasil Mengupdate data cuti",
             data : {
                 id: id,
                 ...body
